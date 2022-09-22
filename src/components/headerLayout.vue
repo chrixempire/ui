@@ -1,11 +1,12 @@
 <template>
     <Header>
         <h1>{{ title }}</h1>
+        <addButton text="Add Task" color="green" class="btn"/>
     </Header>
 </template>
 
 <script>
-
+import addButton from './addButton.vue';
 
 
 
@@ -16,6 +17,9 @@ export default {
         type : String,
     }
    },
+   components:{
+    addButton,
+   }
 }
 </script>
 

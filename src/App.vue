@@ -1,17 +1,59 @@
 <template>
 <div class="container">
   <headerLayout title="Task Tracker"/>
+  <mainTask :tasks="tasks" @del-Task="delTasks(id)"/>
 </div>
 </template>
 
 <script>
 import headerLayout from './components/headerLayout'
-
+import mainTask from './components/mainTask'
 export default {
   name: 'App',
   components: {
-    headerLayout
+    headerLayout,
+    mainTask
+  },
+  data(){
+    return{
+      tasks : []
+    }
+    
+  },
+  methods:{
+    delTasks(id){
+      this.tasks = this.tasks.filter(task => task.id !== id)
+    }
+  },
+  created(){
+    this.tasks = [
+      {
+      id: 1,
+      text: "Doctor's Appointment",
+      day: 'March 1st at 2:30pm',
+      reminder: 'false'
+    },
+      {
+      id: 2,
+      text: "Meeting at School",
+      day: 'March 3rd at 1:30pm',
+      reminder: 'true'
+    },
+      {
+      id: 3,
+      text: "Food Shopping",
+      day: 'March 5th at 2:00pm',
+      reminder: 'false'
+    },
+      {
+      id: 4,
+      text: "Write code",
+      day: 'March 21st at 3:30pm',
+      reminder: 'true'
+    },
+  ]
   }
+
 }
 </script>
 
