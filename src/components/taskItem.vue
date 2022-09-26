@@ -1,5 +1,5 @@
 <template>
-    <div :class="[task.reminder ? 'reminder': '', 'task']">
+    <div :class="[task.reminder ? 'reminder' : '', 'task']" @dblclick="$emit('tasked', task.id)">
         <h3>{{task.text}}
             <span class="material-symbols-outlined fas" @click="$emit('onClick', task.id)" >
 delete
@@ -11,7 +11,18 @@ delete
 <script>
 export default {
    name:"taskItem",
-   props:['task']
+   props:{
+    task: Object,
+   },
+   data(){
+    return{
+      reminder : this.task.reminder
+    }
+   },
+   emits: ['onClick', 'tasked'],
+   methods:{
+   
+   }
 }
 </script>
 

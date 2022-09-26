@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <headerLayout title="Task Tracker"/>
-  <mainTask :tasks="tasks" @del-Task="delTasks(id)"/>
+  <mainTask :tasks="tasks" @del-Task="delTasks($event)" @completeTask="compTask($event)"  />
 </div>
 </template>
 
@@ -22,8 +22,17 @@ export default {
   },
   methods:{
     delTasks(id){
-      this.tasks = this.tasks.filter(task => task.id !== id)
+      if(confirm('Are you Sure?')){
+        this.tasks = this.tasks.filter( task => task.id !== id)
+      }
+     
+    },
+    compTask(id){
+      console.log(id)
+      console.log('what')
+      this.tasks = this.tasks.map(()=> task.id === id ? {...task, reminder: !task.reminder}: task)
     }
+ 
   },
   created(){
     this.tasks = [
@@ -31,25 +40,25 @@ export default {
       id: 1,
       text: "Doctor's Appointment",
       day: 'March 1st at 2:30pm',
-      reminder: 'false'
+      reminder: false
     },
       {
       id: 2,
       text: "Meeting at School",
       day: 'March 3rd at 1:30pm',
-      reminder: 'true'
+      reminder: true
     },
       {
       id: 3,
       text: "Food Shopping",
       day: 'March 5th at 2:00pm',
-      reminder: 'false'
+      reminder: false
     },
       {
       id: 4,
       text: "Write code",
       day: 'March 21st at 3:30pm',
-      reminder: 'true'
+      reminder: true
     },
   ]
   }
