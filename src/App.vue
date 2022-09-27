@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-  <headerLayout title="Task Tracker"/>
+  <headerLayout title="Task Tracker" @toggleTask="toggleAdd" :showTask = "showTask"/>
+  <div v-show="showTask">
+    <addTask @add-Tasks="addNewTask"/>
+  </div>
   <mainTask :tasks="tasks" @del-Task="delTasks($event)" @completeTask="compTask($event)"  />
 </div>
 </template>
@@ -8,19 +11,35 @@
 <script>
 import headerLayout from './components/headerLayout'
 import mainTask from './components/mainTask'
+import addTask from './components/addTask'
 export default {
   name: 'App',
   components: {
     headerLayout,
-    mainTask
+    mainTask,
+    addTask
   },
   data(){
     return{
-      tasks : []
+      tasks : [],
+      showTask: false
     }
     
   },
   methods:{
+    async addNewTask(newtask){
+      const res = await fetch('http://localhost:5000/tasks',{
+        method: 'POST',
+        headers:{
+          'content-type': 'application/json',
+         
+        },
+        body: JSON.stringify(newtask)
+      })
+
+      const data = await res.json()
+      this.tasks.push(data)
+    },
     delTasks(id){
       if(confirm('Are you Sure?')){
         this.tasks = this.tasks.filter( task => task.id !== id)
@@ -29,38 +48,23 @@ export default {
     },
     compTask(id){
       console.log(id)
-      console.log('what')
-      this.tasks = this.tasks.map(()=> task.id === id ? {...task, reminder: !task.reminder}: task)
+      this.tasks = this.tasks.map((task)=> task.id === id ? {...task, reminder: !task.reminder} : task)
+
+    },
+    toggleAdd(){
+      this.showTask = !this.showTask
+    },
+    async fetchTasks(){
+      const res = await fetch('http://localhost:5000/tasks')
+      
+      const data = await res.json()
+
+      return data
     }
  
   },
-  created(){
-    this.tasks = [
-      {
-      id: 1,
-      text: "Doctor's Appointment",
-      day: 'March 1st at 2:30pm',
-      reminder: false
-    },
-      {
-      id: 2,
-      text: "Meeting at School",
-      day: 'March 3rd at 1:30pm',
-      reminder: true
-    },
-      {
-      id: 3,
-      text: "Food Shopping",
-      day: 'March 5th at 2:00pm',
-      reminder: false
-    },
-      {
-      id: 4,
-      text: "Write code",
-      day: 'March 21st at 3:30pm',
-      reminder: true
-    },
-  ]
+  async created(){
+    this.tasks = this.fetchTasks()
   }
 
 }

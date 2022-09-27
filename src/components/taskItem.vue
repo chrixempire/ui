@@ -1,5 +1,5 @@
 <template>
-    <div :class="[task.reminder ? 'reminder' : '', 'task']" @dblclick="$emit('tasked', task.id)">
+    <div @click="$emit('tasked', task.id)" :class="[task.reminder ? 'reminder' : '', 'task']">
         <h3>{{task.text}}
             <span class="material-symbols-outlined fas" @click="$emit('onClick', task.id)" >
 delete
@@ -16,7 +16,7 @@ export default {
    },
    data(){
     return{
-      reminder : this.task.reminder
+      completed : this.task.reminder
     }
    },
    emits: ['onClick', 'tasked'],

@@ -13,7 +13,7 @@ export default {
     methods:{
         onclick(){
             console.log('click')
-            this.$emit('btnClick')
+            this.$emit("show-task")
         }
     }
 }
