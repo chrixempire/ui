@@ -12,6 +12,7 @@
 import headerLayout from './components/headerLayout'
 import mainTask from './components/mainTask'
 import addTask from './components/addTask'
+import axios from 'axios';
 export default {
   name: 'App',
   components: {
@@ -27,23 +28,20 @@ export default {
     
   },
   methods:{
-    async addNewTask(newtask){
-      const res = await fetch('http://localhost:5000/tasks',{
-        method: 'POST',
-        headers:{
-          'content-type': 'application/json',
-         
-        },
-        body: JSON.stringify(newtask)
-      })
+     addNewTask(newTask){
+      const{text, day, reminder} = newTask
 
-      const data = await res.json()
-      this.tasks.push(data)
+      axios.post('http://localhost:5000/tasks',{
+        text,
+        day,
+        reminder
+      }).then (res => this.tasks.push(res.data))
+      .catch(err => console.log(err))
     },
     delTasks(id){
-      if(confirm('Are you Sure?')){
-        this.tasks = this.tasks.filter( task => task.id !== id)
-      }
+      axios.delete(`http://localhost:5000/tasks/${id}`)
+      .then(res => this.tasks = this.tasks.filter(task => task.id !== id)).
+      catch(err => console.log(err))
      
     },
     compTask(id){
@@ -54,17 +52,14 @@ export default {
     toggleAdd(){
       this.showTask = !this.showTask
     },
-    async fetchTasks(){
-      const res = await fetch('http://localhost:5000/tasks')
-      
-      const data = await res.json()
-
-      return data
-    }
+  
  
   },
-  async created(){
-    this.tasks = this.fetchTasks()
+   created(){
+
+    axios.get('http://localhost:5000/tasks').then(res => this.tasks = res.data)
+    .catch(err => console.log(err))
+    // this.tasks = await this.fetchTasks()
   }
 
 }
