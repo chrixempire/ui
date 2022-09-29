@@ -13,6 +13,7 @@ import headerLayout from './components/headerLayout'
 import mainTask from './components/mainTask'
 import addTask from './components/addTask'
 import axios from 'axios';
+import { identifier } from '@babel/types';
 export default {
   name: 'App',
   components: {
@@ -39,9 +40,10 @@ export default {
       .catch(err => console.log(err))
     },
     delTasks(id){
-      axios.delete(`http://localhost:5000/tasks/${id}`)
-      .then(res => this.tasks = this.tasks.filter(task => task.id !== id)).
-      catch(err => console.log(err))
+      // axios.delete(`http://localhost:5000/tasks/${id}`)
+      // .then(res => this.tasks = this.tasks.filter(task => task.id !== id)).
+      // catch(err => console.log(err))
+      this.tasks = this.tasks.filter(task => task.id !== id)
      
     },
     compTask(id){
