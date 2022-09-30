@@ -1,7 +1,7 @@
 <template>
     <footer>
         <p>Copyright &copy; 2022</p>
-        <a href="/aboutView">About</a>
+        <router-link to="/aboutView">About</router-link>
     </footer>
 </template>
 
