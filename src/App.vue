@@ -50,7 +50,7 @@ body {
   min-height: 300px;
   border: 1px solid steelblue;
   margin: auto;
-  margin: 30px 10px;
+  /* margin: 30px 10px; */
   padding: 30px;
   border-radius: 5px;
 }
