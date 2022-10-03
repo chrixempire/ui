@@ -60,6 +60,7 @@ export default {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  border: 2px solid  black;
 }
 .form-control-check {
   display: flex;

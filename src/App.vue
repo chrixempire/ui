@@ -47,6 +47,7 @@ body {
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
+  margin: 5%;
   padding: 30px;
   border-radius: 5px;
 }
@@ -72,5 +73,13 @@ body {
 .btn-block {
   display: block;
   width: 100%;
+}
+
+
+@media screen and (max-width:600px) {
+  .container{
+    padding: 20px;
+  }
+  
 }
 </style>

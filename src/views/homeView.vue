@@ -36,12 +36,12 @@ export default {
       .catch(err => console.log(err))
     },
     delTasks(id){
-      if(confirm('Are you sure?')){
-             axios.delete(`http://localhost:5000/tasks/${id}`)
-      .then(res => this.tasks = this.tasks.filter(task => task.id !== id)).
-      catch(err => console.log(err))
-      }
-    //   this.tasks = this.tasks.filter(task => task.id !== id)
+      // if(confirm('Are you sure?')){
+      //        axios.delete(`http://localhost:5000/tasks/${id}`)
+      // .then(res => this.tasks = this.tasks.filter(task => task.id !== id)).
+      // catch(err => console.log(err))
+      // }
+      this.tasks = this.tasks.filter(task => task.id !== id)
 
 
      
@@ -51,7 +51,12 @@ export default {
       this.tasks = this.tasks.map((task)=> task.id === id ? {...task, reminder: !task.reminder} : task)
 
     },
+    async fetchTask(){
+      const res = await fetch('http://localhost:5000/tasks')
+      const data = await res.json()
 
+      return data
+    }
   
  
   },
