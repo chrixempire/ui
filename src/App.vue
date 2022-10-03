@@ -38,16 +38,19 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
+
+  margin: auto;
 }
 .container {
   max-width: 500px;
-  margin: 30px auto;
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
-  margin: 5%;
+  margin: auto;
+  margin: 30px 10px;
   padding: 30px;
   border-radius: 5px;
 }

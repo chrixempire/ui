@@ -33,8 +33,9 @@ export default {
 .task {
   background: #f4f4f4;
   margin: 5px;
-  padding: 10px 20px;
+  padding: 20px;
   cursor: pointer;
+  /* border: 1px solid red; */
 }
 .task.reminder {
   border-left: 5px solid green;
@@ -43,6 +44,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0;
 }
 
 </style>
