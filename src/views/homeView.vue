@@ -28,31 +28,52 @@ export default {
      addNewTask(newTask){
       const{text, day, reminder} = newTask
 
-      axios.post('http://localhost:5000/tasks',{
+      axios.post('api/tasks',{
         text,
         day,
         reminder
-      }).then (res => this.tasks.push(res.data))
+      }).then (res => this.tasks = [...this.tasks, res.data])
       .catch(err => console.log(err))
     },
-    delTasks(id){
-      // if(confirm('Are you sure?')){
-      //        axios.delete(`http://localhost:5000/tasks/${id}`)
-      // .then(res => this.tasks = this.tasks.filter(task => task.id !== id)).
-      // catch(err => console.log(err))
-      // }
-      this.tasks = this.tasks.filter(task => task.id !== id)
-
+    async delTasks(id){
+  if(confirm('Are you Sure')){
+    const res = await fetch(`api/tasks/${id}`,
+        {
+          method:'DELETE'
+        })
+        res.status === 200 ? (this.tasks = this.tasks.filter((task) => task.id !== id)) : alert('Error deleting task')
+      
+  }
+       
+      
 
      
     },
     async compTask(id){
+      const taskToggle = await this.fetchTask(id)
+      const updTask = {...taskToggle, reminder: !taskToggle.reminder}
+
+      const res = await fetch(`api/tasks/${id}`,{
+        method: 'PUT',
+        headers:{
+          'content-type' : 'application/json'
+        },
+        body : JSON.stringify(updTask)
+      })
+      const data = await res.json()
       console.log(id)
-      this.tasks = this.tasks.map((task)=> task.id === id ? {...task, reminder: !task.reminder} : task)
+      this.tasks = this.tasks.map((task)=> task.id === id ? {...task, reminder: data.reminder} : task)
 
     },
-    async fetchTask(){
-      const res = await fetch('http://localhost:5000/tasks')
+    async fetchTasks(){
+      const res = await fetch('api/tasks')
+      const data = await res.json()
+
+      return data
+    },
+  
+    async fetchTask(id){
+      const res = await fetch(`api/tasks/${id}`)
       const data = await res.json()
 
       return data
@@ -62,7 +83,7 @@ export default {
   },
    created(){
 
-    axios.get('http://localhost:5000/tasks').then(res => this.tasks = res.data)
+    axios.get('api/tasks').then(res => this.tasks = res.data)
     .catch(err => console.log(err))
     // this.tasks = await this.fetchTasks()
   }
