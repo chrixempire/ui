@@ -36,7 +36,7 @@ export default {
       .catch(err => console.log(err))
     },
     async delTasks(id){
-  if(confirm('Are you Sure')){
+  if(confirm('Are you Sure?')){
     const res = await fetch(`api/tasks/${id}`,
         {
           method:'DELETE'

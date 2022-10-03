@@ -50,7 +50,7 @@ body {
   min-height: 300px;
   border: 1px solid steelblue;
   margin: auto;
-  /* margin: 30px 10px; */
+  margin-top: 50px;
   padding: 30px;
   border-radius: 5px;
 }
@@ -82,6 +82,7 @@ body {
 @media screen and (max-width:600px) {
   .container{
     padding: 20px;
+    margin: 50px 10px 0px ;
   }
   
 }
