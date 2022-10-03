@@ -45,12 +45,12 @@ body {
   margin: auto;
 }
 .container {
-  max-width: 500px;
+  max-width: auto;
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
   margin: auto;
-  margin-top: 50px;
+  margin: 50px 0px 50px 0px;
   padding: 30px;
   border-radius: 5px;
 }
