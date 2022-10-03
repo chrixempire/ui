@@ -28,7 +28,7 @@ export default {
      addNewTask(newTask){
       const{text, day, reminder} = newTask
 
-      axios.post('api/tasks',{
+      axios.post('http://localhost:9000/tasks',{
         text,
         day,
         reminder
@@ -37,7 +37,7 @@ export default {
     },
     async delTasks(id){
   if(confirm('Are you Sure?')){
-    const res = await fetch(`api/tasks/${id}`,
+    const res = await fetch(`http://localhost:9000/tasks/${id}`,
         {
           method:'DELETE'
         })
@@ -53,7 +53,7 @@ export default {
       const taskToggle = await this.fetchTask(id)
       const updTask = {...taskToggle, reminder: !taskToggle.reminder}
 
-      const res = await fetch(`api/tasks/${id}`,{
+      const res = await fetch(`http://localhost:9000/tasks/${id}`,{
         method: 'PUT',
         headers:{
           'content-type' : 'application/json'
@@ -66,14 +66,14 @@ export default {
 
     },
     async fetchTasks(){
-      const res = await fetch('api/tasks')
+      const res = await fetch('http://localhost:9000/tasks')
       const data = await res.json()
 
       return data
     },
   
     async fetchTask(id){
-      const res = await fetch(`api/tasks/${id}`)
+      const res = await fetch(`http://localhost:9000/tasks/${id}`)
       const data = await res.json()
 
       return data
@@ -83,7 +83,7 @@ export default {
   },
    created(){
 
-    axios.get('api/tasks').then(res => this.tasks = res.data)
+    axios.get('http://localhost:9000/tasks').then(res => this.tasks = res.data)
     .catch(err => console.log(err))
     // this.tasks = await this.fetchTasks()
   }
